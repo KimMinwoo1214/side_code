@@ -28,6 +28,7 @@ SOFTWARE.
 import cv2
 import time 
 import os 
+import serial
 from opencv_lane_detect import JdOpencvLaneDetect
 
 '''
@@ -37,6 +38,12 @@ from opencv_lane_detect import JdOpencvLaneDetect
 
 # OpenCV line detector object
 cv_detector = JdOpencvLaneDetect()
+
+port = '/dev/ttyTHS1'
+baudrate = 115200
+timeout = 1
+ser = serial.Serial(port, baudrate, timeout = timeout)
+time.sleep(2)
 
 '''
 3. Creating camera object and setting resolution of camera image
@@ -73,7 +80,11 @@ while True:
         else:
             cv_detector.dispaly_headig_line(img_org, curr_stering_angle)
             print(curr_stering_angle)
-        
+            
+            message = f"{curr_stering_angle}\n"
+            ser.write(message.encode('utf-8'))
+            print(f"Sent to Arduino: {message.strip()}")
+            
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     else:
@@ -84,3 +95,4 @@ Releasing occupied resources
 '''
 cap.release()
 cv2.destroyAllWindows()
+ser.close()
