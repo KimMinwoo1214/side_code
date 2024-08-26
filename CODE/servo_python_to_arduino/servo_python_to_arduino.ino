@@ -1,12 +1,12 @@
 #include <Servo.h>
 
 Servo myServo;
-int servoPin = 3;
+int servoPin = 5;
 int angle = 0; // 입력된 각도를 저장할 변수
 
 void setup() {
   myServo.attach(servoPin);
-  Serial.begin(9600); // 시리얼 통신 시작
+  Serial.begin(115200); // 시리얼 통신 시작
 }
 
 void loop() {

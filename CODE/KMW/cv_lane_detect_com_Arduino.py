@@ -39,7 +39,7 @@ from opencv_lane_detect import JdOpencvLaneDetect
 # OpenCV line detector object
 cv_detector = JdOpencvLaneDetect()
 
-port = '/dev/ttyTHS1'
+port = 'COM9'
 baudrate = 115200
 timeout = 1
 ser = serial.Serial(port, baudrate, timeout = timeout)
